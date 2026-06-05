@@ -1,0 +1,43 @@
+# Dependencies
+**/node_modules
+
+# Build
+**/dist
+**/build
+
+# Coverage
+**/coverage
+**/.nyc_output
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Environment
+**/.env*
+!.env.example
+
+# Runtime
+*.pid
+*.seed
+*.pid.lock
+
+# Temp
+**/.temp
+**/.tmp
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
