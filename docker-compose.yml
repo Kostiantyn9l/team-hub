@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: teamhub-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/18/docker
+
+  redis:
+    image: redis:7
+    container_name: teamhub-redis
+    restart: always
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redisdata:/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: DockerFile
+    container_name: teamhub-backend
+    restart: always
+    ports:
+      - "${BACKEND_PORT}:3000"
+    depends_on: 
+      - postgres
+      - redis
+
+volumes:
+  pgdata:
+  redisdata:
