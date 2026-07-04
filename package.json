@@ -1,6 +1,0 @@
-{
-	"dependencies": {
-		"@nestjs/typeorm": "^11.0.3",
-		"cross-env": "^10.1.0"
-	}
-}
