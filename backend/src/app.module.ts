@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
-import { PostgresModule } from './infrastracture/postgres/postgres.module';
-import { ConfigModule } from '@nestjs/config';
-import { RedisModule } from './infrastracture/redis/redis.module';
-import { getEnvFilePath } from './infrastracture/config/env-path';
+import { getEnvFilePath } from './infrastructure/config/env-path';
+
+import { PostgresModule } from './infrastructure/postgres/postgres.module';
+import { RedisModule } from './infrastructure/redis/redis.module';
 
 @Module({
   imports: [
