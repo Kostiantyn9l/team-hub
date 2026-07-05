@@ -4,13 +4,13 @@ import { AppService } from '@/app.service';
 import { PostgresModule } from './infrastracture/postgres/postgres.module';
 import { ConfigModule } from '@nestjs/config';
 import { RedisModule } from './infrastracture/redis/redis.module';
+import { getEnvFilePath } from './infrastracture/config/env-path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath:
-        process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
+      envFilePath: getEnvFilePath(),
     }),
     PostgresModule,
     RedisModule,
