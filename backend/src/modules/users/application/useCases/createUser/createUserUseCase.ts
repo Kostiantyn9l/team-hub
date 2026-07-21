@@ -5,7 +5,7 @@ import { Email } from '@/modules/users/domain/value-objects/email.vo';
 import { Name } from '@/modules/users/domain/value-objects/name.vo';
 import { Password } from '@/modules/users/domain/value-objects/password.vo';
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserResponseDto } from '../../dto/create-user-response.dto';
+import { CreateUserResponseDto } from '../../dto/create-user/create-user-response.dto';
 import * as bcrypt from 'bcrypt';
 
 interface CreateUserInput {
