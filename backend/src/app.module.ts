@@ -8,6 +8,8 @@ import { getEnvFilePath } from './infrastructure/config/env-path';
 import { PostgresModule } from './infrastructure/postgres/postgres.module';
 import { RedisModule } from './infrastructure/redis/redis.module';
 
+import { UsersModule } from './modules/users/users.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -16,6 +18,8 @@ import { RedisModule } from './infrastructure/redis/redis.module';
     }),
     PostgresModule,
     RedisModule,
+
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
