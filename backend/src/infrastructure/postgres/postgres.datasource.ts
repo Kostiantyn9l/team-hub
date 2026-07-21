@@ -18,6 +18,6 @@ export default new DataSource({
   synchronize: false,
   logging: false,
 
-  entities: ['{src,dist}/**/*.entity{.ts,.js}'],
+  entities: ['{src,dist}/**/*.orm-entity{.ts,.js}'],
   migrations: ['{src,dist}/infrastructure/postgres/migrations/*{.ts,.js}'],
 });

@@ -1,40 +1,86 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Name } from '../value-objects/name.vo';
+import { Email } from '../value-objects/email.vo';
+import { Password } from '../value-objects/password.vo';
 
-@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  constructor(
+    private readonly id: string,
+    private name: Name,
+    private email: Email,
+    private password: Password,
+    private isEmailVerified: boolean,
+    private createdAt?: Date,
+    private updatedAt?: Date,
+  ) {}
 
-  @Column({
-    length: 20,
-  })
-  name!: string;
+  static create(name: Name, email: Email, password: Password): User {
+    const now = new Date();
+    return new User(
+      crypto.randomUUID(),
+      name,
+      email,
+      password,
+      false,
+      now,
+      now,
+    );
+  }
+  static restore(
+    id: string,
+    name: Name,
+    email: Email,
+    password: Password,
+    isEmailVerified: boolean,
+    createdAt: Date,
+    updatedAt?: Date,
+  ) {
+    return new User(
+      id,
+      name,
+      email,
+      password,
+      isEmailVerified,
+      createdAt,
+      updatedAt,
+    );
+  }
 
-  @Column({
-    unique: true,
-    length: 255,
-  })
-  email!: string;
+  get Id(): string {
+    return this.id;
+  }
+  get Name(): Name {
+    return this.name;
+  }
+  get Email(): Email {
+    return this.email;
+  }
+  get Password(): Password {
+    return this.password;
+  }
+  get IsEmailVerified(): boolean {
+    return this.isEmailVerified;
+  }
+  get CreatedAt() {
+    return this.createdAt;
+  }
+  get UpdatedAt() {
+    return this.updatedAt;
+  }
 
-  @Column({
-    select: false,
-  })
-  password!: string;
+  changeName(newName: Name) {
+    this.name = newName;
+    this.updatedAt = new Date();
+  }
+  changePassword(newPassword: Password) {
+    this.password = newPassword;
+    this.updatedAt = new Date();
+  }
+  verifyEmail() {
+    if (this.isEmailVerified) {
+      throw new Error('Email is already verified');
+    }
 
-  @Column({
-    default: false,
-  })
-  is_email_verified!: boolean;
-
-  @CreateDateColumn()
-  created_at!: Date;
-
-  @UpdateDateColumn()
-  updated_at!: Date;
+    this.isEmailVerified = true;
+    this.updatedAt = new Date();
+  }
 }
