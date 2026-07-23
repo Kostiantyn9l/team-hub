@@ -17,5 +17,6 @@ import { User as OrmUser } from './infrastructure/persistence/typeorm/entities/u
       useClass: TypeOrmUserRepository,
     },
   ],
+  exports: [CreateUserUseCase],
 })
 export class UsersModule {}
