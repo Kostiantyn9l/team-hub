@@ -5,8 +5,6 @@ export class CreateUserResponseDto {
 
   email!: string;
 
-  password!: string;
-
   isEmailVerified!: boolean;
 
   createdAt!: Date;
