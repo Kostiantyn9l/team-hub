@@ -3,4 +3,5 @@ import { CreateUserResponseDto } from '@/modules/users/application/dto/create-us
 export interface RegisterResponseDto {
   user: CreateUserResponseDto;
   accessToken: string;
+  refreshToken: string;
 }

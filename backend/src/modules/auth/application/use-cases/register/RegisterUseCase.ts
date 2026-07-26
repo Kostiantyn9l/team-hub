@@ -19,14 +19,22 @@ export class RegisterUseCase {
   async execute(dto: CreateUserDto): Promise<RegisterResponseDto> {
     const user = await this.createUserUseCase.execute(dto);
 
-    const accessToken: string = await this.tokenService.generateAccessToken({
-      userId: user.id,
-      email: user.email,
-    });
+    const [accessToken, refreshToken] = await Promise.all([
+      this.tokenService.generateAccessToken({
+        userId: user.id,
+        email: user.email,
+      }),
+
+      this.tokenService.generateRefreshToken({
+        userId: user.id,
+        email: user.email,
+      }),
+    ]);
 
     return {
       user: user,
       accessToken: accessToken,
+      refreshToken: refreshToken,
     };
   }
 }

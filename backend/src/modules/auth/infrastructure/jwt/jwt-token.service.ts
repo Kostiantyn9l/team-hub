@@ -10,14 +10,14 @@ export class JwtTokenService implements ITokenService {
 
   async generateAccessToken(payload: TokenPayload): Promise<string> {
     return this.jwtService.signAsync(payload, {
-      secret: process.env.REFRESH_TOKEN_SECRET,
+      secret: process.env.ACCESS_TOKEN_SECRET,
       expiresIn: '15m',
     });
   }
 
   async generateRefreshToken(payload: TokenPayload): Promise<string> {
     return this.jwtService.signAsync(payload, {
-      secret: process.env.ACCESS_TOKEN_SECRET,
+      secret: process.env.REFRESH_TOKEN_SECRET,
       expiresIn: '30d',
     });
   }
