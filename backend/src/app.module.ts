@@ -9,6 +9,7 @@ import { PostgresModule } from './infrastructure/postgres/postgres.module';
 import { RedisModule } from './infrastructure/redis/redis.module';
 
 import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/users/users.module';
     RedisModule,
 
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
