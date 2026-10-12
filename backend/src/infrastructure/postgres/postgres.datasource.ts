@@ -6,6 +6,8 @@ config({
   path: getEnvFilePath(),
 });
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default new DataSource({
   type: 'postgres',
 
@@ -18,6 +20,14 @@ export default new DataSource({
   synchronize: false,
   logging: false,
 
-  entities: ['{src,dist}/**/*.orm-entity{.ts,.js}'],
-  migrations: ['{src,dist}/infrastructure/postgres/migrations/*{.ts,.js}'],
+  entities: [
+    isProduction
+      ? 'dist/**/*.orm-entity{.ts,.js}'
+      : 'src/**/*.orm-entity{.ts,.js}',
+  ],
+  migrations: [
+    isProduction
+      ? 'dist/infrastructure/postgres/migrations/*{.ts,.js}'
+      : 'src/infrastructure/postgres/migrations/*{.ts,.js}',
+  ],
 });
