@@ -34,6 +34,23 @@ export class TypeOrmUserRepository implements IUserRepository {
     return UserMapper.toDomain(ormUser);
   }
 
+  async findByEmailForAuthentication(email: Email): Promise<User | null> {
+    const ormUser = await this.ormRepository.findOne({
+      where: { email: email.value },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+        is_email_verified: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+    if (!ormUser) return null;
+    return UserMapper.toDomain(ormUser);
+  }
+
   async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id);
   }

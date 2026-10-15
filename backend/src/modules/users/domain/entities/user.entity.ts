@@ -1,19 +1,18 @@
 import { Name } from '../value-objects/name.vo';
 import { Email } from '../value-objects/email.vo';
-import { Password } from '../value-objects/password.vo';
 
 export class User {
   constructor(
     private readonly id: string,
     private name: Name,
     private email: Email,
-    private password: Password,
+    private password: string,
     private isEmailVerified: boolean,
     private createdAt?: Date,
     private updatedAt?: Date,
   ) {}
 
-  static create(name: Name, email: Email, password: Password): User {
+  static create(name: Name, email: Email, password: string): User {
     const now = new Date();
     return new User(
       crypto.randomUUID(),
@@ -29,7 +28,7 @@ export class User {
     id: string,
     name: Name,
     email: Email,
-    password: Password,
+    password: string,
     isEmailVerified: boolean,
     createdAt: Date,
     updatedAt?: Date,
@@ -54,7 +53,7 @@ export class User {
   get Email(): Email {
     return this.email;
   }
-  get Password(): Password {
+  get Password(): string {
     return this.password;
   }
   get IsEmailVerified(): boolean {
@@ -71,7 +70,7 @@ export class User {
     this.name = newName;
     this.updatedAt = new Date();
   }
-  changePassword(newPassword: Password) {
+  changePassword(newPassword: string) {
     this.password = newPassword;
     this.updatedAt = new Date();
   }

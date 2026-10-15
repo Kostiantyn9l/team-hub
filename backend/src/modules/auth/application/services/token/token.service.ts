@@ -1,4 +1,4 @@
-import { TokenPayload } from '../types/token-payload';
+import { TokenPayload } from '../../types/token-payload';
 
 export interface ITokenService {
   generateAccessToken(payload: TokenPayload): Promise<string>;
