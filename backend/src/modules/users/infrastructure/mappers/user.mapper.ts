@@ -3,7 +3,6 @@ import { User } from '../../domain/entities/user.entity';
 
 import { Name } from '../../domain/value-objects/name.vo';
 import { Email } from '../../domain/value-objects/email.vo';
-import { Password } from '../../domain/value-objects/password.vo';
 
 export class UserMapper {
   static toDomain(orm: OrmUser): User {
@@ -11,7 +10,7 @@ export class UserMapper {
       orm.id,
       new Name(orm.name),
       new Email(orm.email),
-      new Password(orm.password),
+      orm.password,
       orm.is_email_verified,
       orm.created_at,
       orm.updated_at,
@@ -23,7 +22,7 @@ export class UserMapper {
       id: domain.Id,
       name: domain.Name.value,
       email: domain.Email.value,
-      password: domain.Password.value,
+      password: domain.Password,
       is_email_verified: domain.IsEmailVerified,
     };
   }

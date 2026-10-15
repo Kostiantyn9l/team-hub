@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { TokenPayload } from '../../application/types/token-payload';
-import { ITokenService } from '../../application/services/token.service';
+import { ITokenService } from '../../application/services/token/token.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class JwtTokenService implements ITokenService {
 
   async verifyAccessToken(accessToken: string): Promise<TokenPayload> {
     return this.jwtService.verifyAsync(accessToken, {
-      secret: process.env.REFRESH_TOKEN_SECRET,
+      secret: process.env.ACCESS_TOKEN_SECRET,
     });
   }
 

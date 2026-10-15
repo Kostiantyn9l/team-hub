@@ -1,14 +1,18 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 
 import { CreateUserUseCase } from '../../application/useCases/createUser/createUserUseCase';
-import { CreateUserDto } from '../../application/dto/create-user/create-user.dto';
+import { GetUserByEmailUseCase } from '../../application/useCases/get-user-by-email/getUserByEmailUseCase';
+import { GetUserByEmailDto } from '../../application/dto/get-user-by-email/get-user-by-email.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly getUserByEmailUseCase: GetUserByEmailUseCase,
+  ) {}
 
-  @Post()
-  async create(@Body() dto: CreateUserDto) {
-    return this.createUserUseCase.execute(dto);
+  @Get()
+  async get(@Query() dto: GetUserByEmailDto) {
+    return this.getUserByEmailUseCase.execute(dto);
   }
 }

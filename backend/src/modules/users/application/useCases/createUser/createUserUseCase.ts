@@ -1,15 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 
-import type { IUserRepository } from '@/modules/users/domain/repositories/users.repository.interface';
 import { USER_REPOSITORY_TOKEN } from '@/modules/users/domain/repositories/users.repository.token';
+import type { IUserRepository } from '@/modules/users/domain/repositories/users.repository.interface';
 
 import { User } from '@/modules/users/domain/entities/user.entity';
 import { Email } from '@/modules/users/domain/value-objects/email.vo';
 import { Name } from '@/modules/users/domain/value-objects/name.vo';
-import { Password } from '@/modules/users/domain/value-objects/password.vo';
 
-import { CreateUserResponseDto } from '../../dto/create-user/create-user-response.dto';
+import { UserResponseDto } from '../../dto/user-response.dto';
 import { CreateUserDto } from '../../dto/create-user/create-user.dto';
 
 @Injectable()
@@ -19,13 +17,10 @@ export class CreateUserUseCase {
     private readonly userRepository: IUserRepository,
   ) {}
 
-  async execute(dto: CreateUserDto): Promise<CreateUserResponseDto> {
+  async execute(dto: CreateUserDto): Promise<UserResponseDto> {
     const name = new Name(dto.name);
     const email = new Email(dto.email);
-
-    const saultRounds: number = 10;
-    const hashedPassword: string = await bcrypt.hash(dto.password, saultRounds);
-    const password = new Password(hashedPassword);
+    const password = dto.password;
 
     const exist = await this.userRepository.findByEmail(email);
     if (exist) {
