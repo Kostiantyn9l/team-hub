@@ -13,6 +13,8 @@ import { Password } from '@/modules/users/domain/value-objects/password.vo';
 import { LoginDto } from '../../dto/login/login.dto';
 import { LoginResponseDto } from '../../dto/login/login-response.dto';
 
+import { UnauthorizedError } from '@/shared/errors/error-categories';
+
 @Injectable()
 export class LoginUseCase {
   constructor(
@@ -32,7 +34,7 @@ export class LoginUseCase {
     const user = await this.userRepository.findByEmailForAuthentication(email);
 
     if (!user) {
-      throw new Error('Invalid credentials');
+      throw new UnauthorizedError('INVALID_CREDENTIALS', 'Invalid credentials');
     }
 
     const isPasswordValid = await this.passwordHashService.comparePassword(
@@ -41,7 +43,7 @@ export class LoginUseCase {
     );
 
     if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
+      throw new UnauthorizedError('INVALID_CREDENTIALS', 'Invalid credentials');
     }
 
     const [accessToken, refreshToken] = await Promise.all([
