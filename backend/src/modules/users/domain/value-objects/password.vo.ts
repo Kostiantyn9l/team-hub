@@ -1,7 +1,12 @@
+import { ValidationError } from '@/shared/errors/error-categories';
+
 export class Password {
   constructor(private readonly password: string) {
     if (password.length < 8)
-      throw new Error('The password must be more than 8 characters long');
+      throw new ValidationError(
+        'PASSWORD_TOO_SHORT',
+        'Password must contain at least 8 characters long',
+      );
   }
 
   get value() {

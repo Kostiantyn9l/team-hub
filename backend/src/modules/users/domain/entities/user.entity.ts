@@ -1,5 +1,6 @@
 import { Name } from '../value-objects/name.vo';
 import { Email } from '../value-objects/email.vo';
+import { ConflictError } from '@/shared/errors/error-categories';
 
 export class User {
   constructor(
@@ -76,7 +77,10 @@ export class User {
   }
   verifyEmail() {
     if (this.isEmailVerified) {
-      throw new Error('Email is already verified');
+      throw new ConflictError(
+        'EMAIL_IS_ALREADY_VERIFIED',
+        'Email is already verified',
+      );
     }
 
     this.isEmailVerified = true;

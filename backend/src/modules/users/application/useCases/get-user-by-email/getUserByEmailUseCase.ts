@@ -8,6 +8,8 @@ import { UserResponseDto } from '../../dto/user-response.dto';
 
 import { Email } from '@/modules/users/domain/value-objects/email.vo';
 
+import { NotFoundError } from '@/shared/errors/error-categories';
+
 @Injectable()
 export class GetUserByEmailUseCase {
   constructor(
@@ -20,7 +22,7 @@ export class GetUserByEmailUseCase {
 
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundError('USER_NOT_FOUND', 'User not found');
     }
 
     return {

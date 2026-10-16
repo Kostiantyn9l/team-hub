@@ -10,6 +10,8 @@ import { Name } from '@/modules/users/domain/value-objects/name.vo';
 import { UserResponseDto } from '../../dto/user-response.dto';
 import { CreateUserDto } from '../../dto/create-user/create-user.dto';
 
+import { ConflictError } from '@/shared/errors/error-categories';
+
 @Injectable()
 export class CreateUserUseCase {
   constructor(
@@ -24,7 +26,10 @@ export class CreateUserUseCase {
 
     const exist = await this.userRepository.findByEmail(email);
     if (exist) {
-      throw new Error('This user is already exist');
+      throw new ConflictError(
+        'USER_ALREADY_EXISTS',
+        'This user is already exists',
+      );
     }
 
     const user = User.create(name, email, password);
