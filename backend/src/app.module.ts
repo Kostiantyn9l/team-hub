@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { AppController } from '@/app.controller';
-import { AppService } from '@/app.service';
 import { getEnvFilePath } from './infrastructure/config/env-path';
 
 import { PostgresModule } from './infrastructure/postgres/postgres.module';
@@ -23,7 +21,5 @@ import { AuthModule } from './modules/auth/auth.module';
     UsersModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
